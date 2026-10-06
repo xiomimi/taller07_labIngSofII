@@ -9,7 +9,7 @@ import java.util.List;
  * Builder concreto para preguntas de tipo Verdadero / Falso.
  * Aplica las siguientes reglas de negocio:
  * - Enunciado obligatorio.
- * - Opciones fijas automáticas: "Verdadero" y "Falso".
+ * - Opciones fijas automaticas: "Verdadero" y "Falso".
  * - La respuesta correcta debe ser obligatoriamente "Verdadero" o "Falso".
  */
 public class TrueFalseQuestionBuilder extends QuestionBuilder {

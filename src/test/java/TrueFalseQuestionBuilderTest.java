@@ -24,7 +24,7 @@ public class TrueFalseQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Construcción correcta: Debe ser posible construir una pregunta V/F con respuesta Verdadero")
+    @DisplayName("Construccion correcta: Debe ser posible construir una pregunta V/F con respuesta Verdadero")
     public void testConstruccionCorrectaVerdadero() {
         builder.buildStatement("El patron Builder es un patron de diseno creacional de GoF.");
         builder.buildDifficulty(DifficultyLevel.BAJA);
@@ -43,7 +43,7 @@ public class TrueFalseQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Construcción correcta: Debe ser posible construir una pregunta V/F con respuesta Falso")
+    @DisplayName("Construccion correcta: Debe ser posible construir una pregunta V/F con respuesta Falso")
     public void testConstruccionCorrectaFalso() {
         builder.buildStatement("El patron Builder requiere que todos los productos hereden de la misma interfaz.");
         builder.buildDifficulty(DifficultyLevel.MEDIA);
@@ -57,7 +57,7 @@ public class TrueFalseQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Validación de campos obligatorios: No debe ser posible construir sin enunciado")
+    @DisplayName("Validacion de campos obligatorios: No debe ser posible construir sin enunciado")
     public void testValidacionSinEnunciado() {
         builder.buildCorrectAnswer("Verdadero");
 
@@ -66,7 +66,7 @@ public class TrueFalseQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Validación de campos obligatorios: Sin respuesta correcta especificada")
+    @DisplayName("Validacion de campos obligatorios: Sin respuesta correcta especificada")
     public void testValidacionSinRespuestaCorrecta() {
         builder.buildStatement("Una declaracion de prueba.");
         // No se asigna respuesta correcta
@@ -76,7 +76,7 @@ public class TrueFalseQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Respuestas válidas: La respuesta no puede ser distinta de Verdadero o Falso")
+    @DisplayName("Respuestas validas: La respuesta no puede ser distinta de Verdadero o Falso")
     public void testValidacionRespuestaInvalida() {
         builder.buildStatement("Una declaracion de prueba.");
         builder.buildCorrectAnswer("Quizas");
@@ -86,13 +86,13 @@ public class TrueFalseQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Construcción orquestada mediante QuestionDirector")
+    @DisplayName("Construccion orquestada mediante QuestionDirector")
     public void testConstruccionConQuestionDirector() {
         QuestionDirector director = new QuestionDirector(builder);
 
         director.constructCompleteQuestion(
             "Contexto de evaluacion",
-            "¿Java es un lenguaje de programacion fuertemente tipado?",
+            "Java es un lenguaje de programacion fuertemente tipado?",
             DifficultyLevel.BAJA,
             "Programacion",
             "Docente",

@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Pruebas unitarias para MultipleChoiceQuestionBuilder.
  * Verifica la construccion correcta, validacion de campos obligatorios,
- * validacion especifica de opciones, respuestas validas y reglas de negocio Saber Pro.
+ * validacion especifica de opciones, respuestas validas y reglas de negocio
+ * Saber Pro.
  */
 public class MultipleChoiceQuestionBuilderTest {
 
@@ -28,9 +29,9 @@ public class MultipleChoiceQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Construcción correcta: Debe ser posible construir una pregunta válida")
+    @DisplayName("Construccion correcta: Debe ser posible construir una pregunta valida")
     public void testConstruccionCorrectaPreguntaValida() {
-        builder.buildStatement("¿Cual es el patron que separa la construccion de un objeto de su representacion?");
+        builder.buildStatement("Cual es el patron que separa la construccion de un objeto de su representacion?");
         builder.buildDifficulty(DifficultyLevel.MEDIA);
         builder.buildCategory("Patrones Creacionales");
         builder.buildAuthor("Docente LISW2");
@@ -46,7 +47,8 @@ public class MultipleChoiceQuestionBuilderTest {
 
         assertNotNull(question);
         assertEquals(QuestionType.MULTIPLE_CHOICE, question.getType());
-        assertEquals("¿Cual es el patron que separa la construccion de un objeto de su representacion?", question.getStatement());
+        assertEquals("Cual es el patron que separa la construccion de un objeto de su representacion?",
+                question.getStatement());
         assertEquals(DifficultyLevel.MEDIA, question.getDifficulty());
         assertEquals(4, question.getOptions().size());
         assertEquals("Builder", question.getCorrectAnswer());
@@ -54,7 +56,7 @@ public class MultipleChoiceQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Validación de campos obligatorios: No debe ser posible construir una pregunta sin enunciado")
+    @DisplayName("Validacion de campos obligatorios: No debe ser posible construir una pregunta sin enunciado")
     public void testValidacionCamposObligatoriosSinEnunciado() {
         builder.addOption("Opcion 1", true);
         builder.addOption("Opcion 2", false);
@@ -66,7 +68,7 @@ public class MultipleChoiceQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Validación de campos obligatorios: Enunciado en blanco no es valido")
+    @DisplayName("Validacion de campos obligatorios: Enunciado en blanco no es valido")
     public void testValidacionEnunciadoEnBlanco() {
         builder.buildStatement("    ");
         builder.addOption("Opcion 1", true);
@@ -77,9 +79,9 @@ public class MultipleChoiceQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Validación específica por tipo: Pregunta de seleccion multiple debe tener opciones")
+    @DisplayName("Validacion especifica por tipo: Pregunta de seleccion multiple debe tener opciones")
     public void testValidacionEspecificaPorTipoSinOpciones() {
-        builder.buildStatement("¿Cual es la respuesta?");
+        builder.buildStatement("Cual es la respuesta?");
         // No se agregan opciones
 
         IllegalStateException ex = assertThrows(IllegalStateException.class, () -> builder.build());
@@ -87,9 +89,9 @@ public class MultipleChoiceQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Validación específica por tipo: Debe tener al menos dos opciones")
+    @DisplayName("Validacion especifica por tipo: Debe tener al menos dos opciones")
     public void testValidacionMenosDeDosOpciones() {
-        builder.buildStatement("¿Cual es la capital?");
+        builder.buildStatement("Cual es la capital?");
         builder.addOption("Bogota", true);
 
         IllegalStateException ex = assertThrows(IllegalStateException.class, () -> builder.build());
@@ -97,15 +99,15 @@ public class MultipleChoiceQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Respuestas válidas: Una respuesta correcta debe corresponder a una opción existente")
+    @DisplayName("Respuestas validas: Una respuesta correcta debe corresponder a una opcion existente")
     public void testValidacionRespuestaCorrectaNoExistente() {
-        builder.buildStatement("¿Cual es el lenguaje principal?");
+        builder.buildStatement("Cual es el lenguaje principal?");
         builder.addOption("Python", false);
         builder.addOption("Java", false);
         builder.buildCorrectAnswer("C++"); // No esta entre las opciones
 
         IllegalStateException ex = assertThrows(IllegalStateException.class, () -> builder.build());
-        assertTrue(ex.getMessage().contains("debe corresponder a una opción existente"));
+        assertTrue(ex.getMessage().contains("debe corresponder a una opcion existente"));
     }
 
     @Test
@@ -131,30 +133,28 @@ public class MultipleChoiceQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Construcción orquestada mediante QuestionDirector")
+    @DisplayName("Construccion orquestada mediante QuestionDirector")
     public void testConstruccionConQuestionDirector() {
         QuestionDirector director = new QuestionDirector(builder);
 
         List<Option> opciones = Arrays.asList(
-            new Option("A", "Opcion A", true),
-            new Option("B", "Opcion B", false)
-        );
+                new Option("A", "Opcion A", true),
+                new Option("B", "Opcion B", false));
 
         director.constructCompleteQuestion(
-            "Contexto de prueba",
-            "¿Pregunta orquestada?",
-            DifficultyLevel.ALTA,
-            "Ingenieria",
-            "Profesor",
-            "Justificacion valida",
-            "Fuente valida",
-            opciones,
-            "Opcion A"
-        );
+                "Contexto de prueba",
+                "Pregunta orquestada?",
+                DifficultyLevel.ALTA,
+                "Ingenieria",
+                "Profesor",
+                "Justificacion valida",
+                "Fuente valida",
+                opciones,
+                "Opcion A");
 
         Question result = director.getQuestion();
         assertNotNull(result);
-        assertEquals("¿Pregunta orquestada?", result.getStatement());
+        assertEquals("Pregunta orquestada?", result.getStatement());
         assertEquals("Opcion A", result.getCorrectAnswer());
     }
 }

@@ -1,11 +1,11 @@
 package domain;
 
 /**
- * Enumeración que representa los tipos de preguntas soportados
+ * Enumeracion que representa los tipos de preguntas soportados
  * en el Banco de Preguntas.
  */
 public enum QuestionType {
-    MULTIPLE_CHOICE("Selección Múltiple"),
+    MULTIPLE_CHOICE("Seleccion Multiple"),
     TRUE_FALSE("Verdadero / Falso"),
     OPEN("Pregunta Abierta");
 

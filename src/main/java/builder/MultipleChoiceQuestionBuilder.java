@@ -6,12 +6,14 @@ import domain.QuestionType;
 import java.util.List;
 
 /**
- * Builder concreto para la construccion de preguntas de Selección Múltiple.
+ * Builder concreto para la construccion de preguntas de Seleccion Multiple.
  * Aplica las reglas de negocio establecidas en el Banco de Preguntas Saber Pro:
  * - Enunciado obligatorio.
- * - Requiere opciones de respuesta (mínimo 2, típicamente 4).
- * - La respuesta correcta debe coincidir exactamente con una opción existente (RF-11).
- * - Impide el uso de expresiones prohibidas como "Todas las anteriores" o "Ninguna de las anteriores" (RF-12).
+ * - Requiere opciones de respuesta (minimo 2, tipicamente 4).
+ * - La respuesta correcta debe coincidir exactamente con una opcion existente
+ * (RF-11).
+ * - Impide el uso de expresiones prohibidas como "Todas las anteriores" o
+ * "Ninguna de las anteriores" (RF-12).
  */
 public class MultipleChoiceQuestionBuilder extends QuestionBuilder {
 
@@ -27,6 +29,7 @@ public class MultipleChoiceQuestionBuilder extends QuestionBuilder {
 
     /**
      * Permite agregar una opcion de respuesta individualmente.
+     * 
      * @param text texto de la opcion
      * @return this builder para encadenamiento fluido opcional
      */
@@ -36,7 +39,8 @@ public class MultipleChoiceQuestionBuilder extends QuestionBuilder {
 
     /**
      * Permite agregar una opcion de respuesta con indicacion de si es correcta.
-     * @param text texto de la opcion
+     * 
+     * @param text      texto de la opcion
      * @param isCorrect verdadero si es la respuesta correcta
      * @return this builder
      */
@@ -54,6 +58,7 @@ public class MultipleChoiceQuestionBuilder extends QuestionBuilder {
 
     /**
      * Agrega un objeto Option existente.
+     * 
      * @param option opcion a agregar
      * @return this builder
      */
@@ -92,7 +97,7 @@ public class MultipleChoiceQuestionBuilder extends QuestionBuilder {
             // Sincronizar con opciones existentes si ya se agregaron
             for (Option opt : this.question.getOptions()) {
                 boolean matches = opt.getText().equalsIgnoreCase(correctAnswer.trim()) ||
-                                  (opt.getId() != null && opt.getId().equalsIgnoreCase(correctAnswer.trim()));
+                        (opt.getId() != null && opt.getId().equalsIgnoreCase(correctAnswer.trim()));
                 if (matches) {
                     opt.setCorrect(true);
                 }
@@ -112,13 +117,13 @@ public class MultipleChoiceQuestionBuilder extends QuestionBuilder {
             throw new IllegalStateException("El enunciado de la pregunta es obligatorio.");
         }
 
-        // 2. Opciones obligatorias (mínimo 2)
+        // 2. Opciones obligatorias (minimo 2)
         List<Option> options = question.getOptions();
         if (options == null || options.isEmpty()) {
-            throw new IllegalStateException("Una pregunta de selección múltiple debe tener opciones.");
+            throw new IllegalStateException("Una pregunta de seleccion multiple debe tener opciones.");
         }
         if (options.size() < 2) {
-            throw new IllegalStateException("Una pregunta de selección múltiple debe tener al menos 2 opciones.");
+            throw new IllegalStateException("Una pregunta de seleccion multiple debe tener al menos 2 opciones.");
         }
 
         // 3. Respuesta correcta obligatoria
@@ -138,7 +143,8 @@ public class MultipleChoiceQuestionBuilder extends QuestionBuilder {
         boolean encontrada = false;
         for (Option opt : options) {
             if (opt.getText().equalsIgnoreCase(correctAnswer.trim()) ||
-                (opt.getId() != null && !opt.getId().isEmpty() && opt.getId().equalsIgnoreCase(correctAnswer.trim()))) {
+                    (opt.getId() != null && !opt.getId().isEmpty()
+                            && opt.getId().equalsIgnoreCase(correctAnswer.trim()))) {
                 opt.setCorrect(true);
                 question.setCorrectAnswer(opt.getText());
                 encontrada = true;
@@ -146,20 +152,22 @@ public class MultipleChoiceQuestionBuilder extends QuestionBuilder {
             }
         }
         if (!encontrada) {
-            throw new IllegalStateException("La respuesta correcta debe corresponder a una opción existente.");
+            throw new IllegalStateException("La respuesta correcta debe corresponder a una opcion existente.");
         }
 
-        // 5. Debe existir únicamente una respuesta correcta (RF-11)
+        // 5. Debe existir unicamente una respuesta correcta (RF-11)
         long correctCount = options.stream().filter(Option::isCorrect).count();
         if (correctCount != 1) {
-            throw new IllegalStateException("Debe existir únicamente una respuesta correcta en preguntas de selección múltiple.");
+            throw new IllegalStateException(
+                    "Debe existir unicamente una respuesta correcta en preguntas de seleccion multiple.");
         }
 
-        // 6. Prohibición de expresiones según RF-12
+        // 6. Prohibicion de expresiones segun RF-12
         for (Option opt : options) {
             String txt = opt.getText().toLowerCase();
             if (txt.contains("todas las anteriores") || txt.contains("ninguna de las anteriores")) {
-                throw new IllegalStateException("No se permite el uso de expresiones como 'Todas las anteriores' o 'Ninguna de las anteriores' (RF-12).");
+                throw new IllegalStateException(
+                        "No se permite el uso de expresiones como 'Todas las anteriores' o 'Ninguna de las anteriores' (RF-12).");
             }
         }
     }

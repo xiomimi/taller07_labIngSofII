@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Representa el producto principal del patrón Builder:
- * Una pregunta en el Sistema de Gestión del Banco de Preguntas Saber Pro.
+ * Representa el producto principal del patron Builder:
+ * Una pregunta en el Sistema de Gestion del Banco de Preguntas Saber Pro.
  */
 public class Question {
     private String statement;
@@ -148,12 +148,11 @@ public class Question {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("=================================================================\n");
-        sb.append("TIPO DE PREGUNTA: ").append(type != null ? type.getDisplayName() : "No especificado").append("\n");
-        sb.append("ESTADO: ").append(status).append("\n");
-        sb.append("-----------------------------------------------------------------\n");
+        sb.append("--------------------------------------------------\n");
+        sb.append("Tipo: ").append(type != null ? type.getDisplayName() : "No especificado").append("\n");
+        sb.append("Estado: ").append(status).append("\n");
         if (category != null && !category.isEmpty()) {
-            sb.append("Competencia / Categoria: ").append(category).append("\n");
+            sb.append("Categoria: ").append(category).append("\n");
         }
         if (topic != null && !topic.isEmpty()) {
             sb.append("Tema: ").append(topic);
@@ -169,34 +168,34 @@ public class Question {
             sb.append("Autor: ").append(author).append("\n");
         }
         if (context != null && !context.isEmpty()) {
-            sb.append("\n[Contexto]:\n").append(context).append("\n");
+            sb.append("Contexto: ").append(context).append("\n");
         }
-        sb.append("\n[Enunciado]:\n").append(statement).append("\n");
+        sb.append("Enunciado: ").append(statement).append("\n");
 
         if (!options.isEmpty()) {
-            sb.append("\n[Opciones de Respuesta]:\n");
+            sb.append("Opciones:\n");
             for (int i = 0; i < options.size(); i++) {
                 Option opt = options.get(i);
                 char letter = (char) ('A' + i);
                 String prefix = opt.getId() != null && !opt.getId().isEmpty() ? opt.getId() : String.valueOf(letter);
                 sb.append("  ").append(prefix).append(") ").append(opt.getText());
                 if (opt.isCorrect()) {
-                    sb.append("  <-- (Correcta)");
+                    sb.append(" (Correcta)");
                 }
                 sb.append("\n");
             }
         }
 
         if (correctAnswer != null && !correctAnswer.isEmpty()) {
-            sb.append("\nRespuesta Correcta / Clave: ").append(correctAnswer).append("\n");
+            sb.append("Respuesta correcta: ").append(correctAnswer).append("\n");
         }
         if (justification != null && !justification.isEmpty()) {
             sb.append("Justificacion: ").append(justification).append("\n");
         }
         if (source != null && !source.isEmpty()) {
-            sb.append("Fuente / Bibliografia: ").append(source).append("\n");
+            sb.append("Fuente: ").append(source).append("\n");
         }
-        sb.append("=================================================================\n");
+        sb.append("--------------------------------------------------");
         return sb.toString();
     }
 }

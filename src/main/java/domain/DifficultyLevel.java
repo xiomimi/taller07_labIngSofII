@@ -1,7 +1,7 @@
 package domain;
 
 /**
- * Enumeración que representa los niveles de dificultad de una pregunta
+ * Enumeracion que representa los niveles de dificultad de una pregunta
  * en el Banco de Preguntas para las Pruebas Saber Pro.
  */
 public enum DifficultyLevel {

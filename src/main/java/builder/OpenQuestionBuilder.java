@@ -9,8 +9,8 @@ import java.util.List;
  * Builder concreto para preguntas de tipo Abierta.
  * Aplica las siguientes reglas de negocio:
  * - Enunciado obligatorio.
- * - No requiere opciones de selección predefinidas (lista de opciones vacía).
- * - Puede incorporar una respuesta esperada o rúbrica de calificación.
+ * - No requiere opciones de seleccion predefinidas (lista de opciones vacia).
+ * - Puede incorporar una respuesta esperada o rubrica de calificacion.
  */
 public class OpenQuestionBuilder extends QuestionBuilder {
 
@@ -27,7 +27,7 @@ public class OpenQuestionBuilder extends QuestionBuilder {
 
     @Override
     public void buildOptions(List<Option> options) {
-        // Las preguntas abiertas no tienen opciones de selección fija
+        // Las preguntas abiertas no tienen opciones de seleccion fija
         this.question.clearOptions();
     }
 
@@ -50,7 +50,7 @@ public class OpenQuestionBuilder extends QuestionBuilder {
             throw new IllegalStateException("El enunciado de la pregunta es obligatorio.");
         }
 
-        // 2. Asegurar que no contenga opciones de selección
+        // 2. Asegurar que no contenga opciones de seleccion
         this.question.clearOptions();
     }
 }

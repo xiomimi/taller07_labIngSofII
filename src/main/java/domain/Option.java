@@ -3,7 +3,7 @@ package domain;
 import java.util.Objects;
 
 /**
- * Representa una opción de respuesta en una pregunta del Banco de Preguntas.
+ * Representa una opcion de respuesta en una pregunta del Banco de Preguntas.
  */
 public class Option {
     private String id;

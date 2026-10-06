@@ -29,7 +29,7 @@ public class OpenQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Construcción correcta: Debe ser posible construir una pregunta abierta válida")
+    @DisplayName("Construccion correcta: Debe ser posible construir una pregunta abierta valida")
     public void testConstruccionCorrectaPreguntaAbierta() {
         builder.buildStatement("Explique en sus propias palabras el principio de Inversion de Dependencias (DIP).");
         builder.buildDifficulty(DifficultyLevel.ALTA);
@@ -48,7 +48,7 @@ public class OpenQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Validación de campos obligatorios: No debe ser posible construir sin enunciado")
+    @DisplayName("Validacion de campos obligatorios: No debe ser posible construir sin enunciado")
     public void testValidacionSinEnunciado() {
         builder.buildAuthor("Profesor");
         builder.buildCorrectAnswer("Respuesta esperada");
@@ -58,26 +58,26 @@ public class OpenQuestionBuilderTest {
     }
 
     @Test
-    @DisplayName("Validación específica por tipo: Preguntas abiertas garantizan opciones vacías")
+    @DisplayName("Validacion especifica por tipo: Preguntas abiertas garantizan opciones vacias")
     public void testPreguntaAbiertaSinOpciones() {
-        builder.buildStatement("¿Cuales son los desafios de la arquitectura de microservicios?");
+        builder.buildStatement("Cuales son los desafios de la arquitectura de microservicios?");
         builder.buildOptions(Collections.singletonList(new Option("A", "Opcion irrelevante", false)));
 
         Question question = builder.build();
-        assertTrue(question.getOptions().isEmpty(), "Las preguntas abiertas deben mantener lista de opciones vacía");
+        assertTrue(question.getOptions().isEmpty(), "Las preguntas abiertas deben mantener lista de opciones vacia");
     }
 
     @Test
-    @DisplayName("Construcción de diferentes productos: El mismo proceso del Director permite construir diferentes tipos de preguntas")
+    @DisplayName("Construccion de diferentes productos: El mismo proceso del Director permite construir diferentes tipos de preguntas")
     public void testConstruccionDiferentesProductosConMismoProceso() {
         QuestionDirector director = new QuestionDirector();
 
-        // 1. Construir pregunta de Selección Múltiple
+        // 1. Construir pregunta de Seleccion Multiple
         MultipleChoiceQuestionBuilder mcBuilder = new MultipleChoiceQuestionBuilder();
         director.changeBuilder(mcBuilder);
         director.constructCompleteQuestion(
-            "Contexto común",
-            "¿Pregunta de Seleccion Multiple?",
+            "Contexto comun",
+            "Pregunta de Seleccion Multiple?",
             DifficultyLevel.MEDIA,
             "Ingenieria",
             "Autor 1",
@@ -92,8 +92,8 @@ public class OpenQuestionBuilderTest {
         TrueFalseQuestionBuilder tfBuilder = new TrueFalseQuestionBuilder();
         director.changeBuilder(tfBuilder);
         director.constructCompleteQuestion(
-            "Contexto común",
-            "¿Pregunta de Verdadero o Falso?",
+            "Contexto comun",
+            "Pregunta de Verdadero o Falso?",
             DifficultyLevel.BAJA,
             "Ingenieria",
             "Autor 2",
@@ -108,8 +108,8 @@ public class OpenQuestionBuilderTest {
         OpenQuestionBuilder openBuilder = new OpenQuestionBuilder();
         director.changeBuilder(openBuilder);
         director.constructCompleteQuestion(
-            "Contexto común",
-            "¿Pregunta Abierta de ensayo?",
+            "Contexto comun",
+            "Pregunta Abierta de ensayo?",
             DifficultyLevel.ALTA,
             "Ingenieria",
             "Autor 3",
